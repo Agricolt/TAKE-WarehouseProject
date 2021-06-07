@@ -13,20 +13,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Produkty {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+public class Produkt {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idProduktu;
-	
-	private Magazyny Magazyny_idMagazynu;
-	
+
+	@ManyToOne
+	private Magazyn magazyn;
+
 	private Float cena;
-	
+
 	private String nazwa;
-	
+
 	private Integer iloscNaMagazynie;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="Produkty")
-	private List<ProduktyFaktury> faktury = new ArrayList<ProduktyFaktury>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "produkt")
+	private List<ProduktFaktura> produktyFaktury = new ArrayList<ProduktFaktura>();
 
 	public Integer getIdProduktu() {
 		return idProduktu;
@@ -34,15 +36,6 @@ public class Produkty {
 
 	public void setIdProduktu(Integer idProduktu) {
 		this.idProduktu = idProduktu;
-	}
-
-	@ManyToOne
-	public Magazyny getMagazyny_idMagazynu() {
-		return Magazyny_idMagazynu;
-	}
-
-	public void setMagazyny_idMagazynu(Magazyny magazyny_idMagazynu) {
-		Magazyny_idMagazynu = magazyny_idMagazynu;
 	}
 
 	public Float getCena() {
@@ -69,13 +62,34 @@ public class Produkty {
 		this.iloscNaMagazynie = iloscNaMagazynie;
 	}
 
-	public List<ProduktyFaktury> getFaktury() {
-		return faktury;
+	public Magazyn getMagazyn() {
+		return magazyn;
 	}
 
-	public void setFaktury(List<ProduktyFaktury> faktury) {
-		this.faktury = faktury;
+	public void setMagazyn(Magazyn magazyn) {
+		this.magazyn = magazyn;
 	}
-	
-	
+
+	public List<ProduktFaktura> getProduktyFaktury() {
+		return produktyFaktury;
+	}
+
+	public void setProduktyFaktury(List<ProduktFaktura> produktyFaktury) {
+		this.produktyFaktury = produktyFaktury;
+	}
+
+	public Produkt(Magazyn magazyn, Float cena, String nazwa, Integer iloscNaMagazynie,
+			List<ProduktFaktura> produktyFaktury) {
+		super();
+		this.magazyn = magazyn;
+		this.cena = cena;
+		this.nazwa = nazwa;
+		this.iloscNaMagazynie = iloscNaMagazynie;
+		this.produktyFaktury = produktyFaktury;
+	}
+
+	public Produkt() {
+		super();
+	}
+
 }

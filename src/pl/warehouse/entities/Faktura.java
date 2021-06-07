@@ -13,11 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Faktury {
+public class Faktura {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idFaktury;
-	
-	private Klienci klient;
+
+	@ManyToOne
+	private Klient klient;
 	
 	private float kwota;
 
@@ -29,15 +30,14 @@ public class Faktury {
 		this.idFaktury = idFaktury;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="Faktury")
-	private List<ProduktyFaktury> faktury = new ArrayList<ProduktyFaktury>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="faktura")
+	private List<ProduktFaktura> produktyFaktury = new ArrayList<ProduktFaktura>();
 	
-	@ManyToOne
-	public Klienci getKlient() {
+	public Klient getKlient() {
 		return klient;
 	}
 
-	public void setKlient(Klienci klient) {
+	public void setKlient(Klient klient) {
 		this.klient = klient;
 	}
 
@@ -47,6 +47,25 @@ public class Faktury {
 
 	public void setKwota(float kwota) {
 		this.kwota = kwota;
+	}
+
+	public List<ProduktFaktura> getProduktyFaktury() {
+		return produktyFaktury;
+	}
+
+	public void setProduktyFaktury(List<ProduktFaktura> produktyFaktury) {
+		this.produktyFaktury = produktyFaktury;
+	}
+
+	public Faktura(Klient klient, float kwota, List<ProduktFaktura> produktyFaktury) {
+		super();
+		this.klient = klient;
+		this.kwota = kwota;
+		this.produktyFaktury = produktyFaktury;
+	}
+
+	public Faktura() {
+		super();
 	}
 	
 	

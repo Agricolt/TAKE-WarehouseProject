@@ -12,8 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Klienci {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+public class Klient {
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idKlienta;
 	
 	private String imie;
@@ -23,9 +24,9 @@ public class Klienci {
 	private Integer telefon;
 	
 	private String email;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="Klienci")
-	private List<Faktury> faktury = new ArrayList<Faktury>();
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="klient")
+	private List<Faktura> faktury = new ArrayList<Faktura>();
 
 	public Integer getIdKlienta() {
 		return idKlienta;
@@ -67,13 +68,26 @@ public class Klienci {
 		this.email = email;
 	}
 
-	public List<Faktury> getFaktury() {
+	public List<Faktura> getFaktury() {
 		return faktury;
 	}
 
-	public void setFaktury(List<Faktury> faktury) {
+	public void setFaktury(List<Faktura> faktury) {
 		this.faktury = faktury;
 	}
+
+	public Klient(String imie, String nazwisko, Integer telefon, String email) {
+		super();
+		this.imie = imie;
+		this.nazwisko = nazwisko;
+		this.telefon = telefon;
+		this.email = email;
+	}
+
+	public Klient() {
+		super();
+	}
+	
 	
 	
 }
