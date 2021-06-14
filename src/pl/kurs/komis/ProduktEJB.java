@@ -1,5 +1,8 @@
 package pl.kurs.komis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
@@ -53,7 +56,29 @@ public class ProduktEJB {
 		
 	}
 
+	public List<ProduktDTO> getProduktByMagazyn(String adres){
+		
+		Magazyn magazyn = magazynRepository.getMagazynByAdres(adres);
+		
+		List<Produkt> produkty = produktRepository.getProduktByMagazyn(magazyn.getIdKMagazynu());
+		List<ProduktDTO> produktyDTO = new ArrayList<>();
+			for(Produkt produkt: produkty){
+				
+				ProduktDTO dto = new ProduktDTO(produkt);
+				produktyDTO.add(dto);
+			}
+		return produktyDTO;
+	}
 	
+	public ProduktDTO getProduktById(Integer id){
+		return new ProduktDTO(produktRepository.getProduktById(id));
+	}
 	
+	public void deleteProdukt(Integer id){
+		produktRepository.deleteProdukt(produktRepository.getProduktById(id));
+	}
 	
+	public void deleteProduct(Integer id){
+		produktRepository.deleteProduct(id);
+	}
 }
