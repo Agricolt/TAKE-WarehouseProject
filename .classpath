@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.36-bin.jar"/>
 	<classpathentry kind="lib" path="F:/Pulpit/studia/take/javaee.jar"/>
+	<classpathentry kind="lib" path="F:/Pulpit/studia/take/javax.inject-1.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

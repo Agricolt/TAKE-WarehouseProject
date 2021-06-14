@@ -1,8 +1,10 @@
 package RepositoryInterfaces;
 
 
-import pl.warehouse.entities.Produkt;
+import javax.ejb.Local;
 
+import pl.warehouse.entities.Produkt;
+@Local
 public interface ProduktInterface {
 
 	Produkt getProduktById(Long id);

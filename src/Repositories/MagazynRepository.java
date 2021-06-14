@@ -1,13 +1,16 @@
 package Repositories;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import RepositoryInterfaces.MagazynInterface;
 import pl.warehouse.entities.Magazyn;
-
+@Stateless
 public class MagazynRepository implements MagazynInterface {
 
+    @PersistenceContext(unitName = "warehouse")
 	private EntityManager em;
 	
 	public MagazynRepository(EntityManager em){
@@ -15,6 +18,11 @@ public class MagazynRepository implements MagazynInterface {
 	}
 	
 	
+	public MagazynRepository() {
+		super();
+	}
+
+
 	@Override
 	public Magazyn getMagazynById(Long id) {
 		return em.find(Magazyn.class,id);
