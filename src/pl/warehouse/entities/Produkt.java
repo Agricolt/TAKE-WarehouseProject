@@ -40,6 +40,12 @@ public class Produkt {
 		this.iloscNaMagazynie = dto.getIloscNaMagazynie();
 	}
 	
+	public void update(ProduktDTO dto,Magazyn magazyn){
+		this.iloscNaMagazynie = dto.getIloscNaMagazynie();
+		this.cena = dto.getCena();
+		this.nazwa = dto.getNazwa();
+		this.magazyn = magazyn;
+	}
 	
 	public Integer getIdProduktu() {
 		return idProduktu;

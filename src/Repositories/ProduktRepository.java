@@ -20,9 +20,6 @@ public class ProduktRepository implements ProduktInterface {
     @PersistenceContext(unitName = "warehouse")
 	private EntityManager em;
 	
-	//private final MagazynRepository magazynRepository = new MagazynRepository(em);
-	
-	
 	public ProduktRepository(EntityManager em){
 		this.em = em;
 	}

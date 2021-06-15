@@ -23,16 +23,6 @@ import pl.warehouse.entities.Produkt;
 @Stateless
 public class ProduktEJB {
 
-	
-	//private final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("warehouse");
-	//private final EntityManager manager = managerFactory.createEntityManager();
-	
-    //@PersistenceContext(unitName = "warehouse")
-    //private EntityManager manager;
-	
-	//private final ProduktRepository produktRepository = new ProduktRepository(this.manager);
-	//private final MagazynRepository magazynRepository = new MagazynRepository(this.manager);
-	
 	@EJB
     private  ProduktInterface produktRepository;
 	@EJB
@@ -81,4 +71,15 @@ public class ProduktEJB {
 	public void deleteProduct(Integer id){
 		produktRepository.deleteProduct(id);
 	}
+	
+	public void updateProdukt(Integer id, ProduktDTO dto){
+		
+		Produkt produkt = produktRepository.getProduktById(id);
+		Magazyn magazyn = magazynRepository.getMagazynByAdres(dto.getAdresMagazynu());
+		
+		produkt.update(dto, magazyn);
+		produktRepository.saveProdukt(produkt);
+	}
+	
+	
 }
