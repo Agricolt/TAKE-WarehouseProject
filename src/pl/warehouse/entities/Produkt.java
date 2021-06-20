@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import pl.warehouse.dto.ProduktDTO;
+
 @Entity
 public class Produkt {
 	@Id
@@ -30,6 +32,21 @@ public class Produkt {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "produkt")
 	private List<ProduktFaktura> produktyFaktury = new ArrayList<ProduktFaktura>();
 
+	
+	public Produkt(ProduktDTO dto){
+		
+		this.cena = dto.getCena();
+		this.nazwa = dto.getNazwa();
+		this.iloscNaMagazynie = dto.getIloscNaMagazynie();
+	}
+	
+	public void update(ProduktDTO dto,Magazyn magazyn){
+		this.iloscNaMagazynie = dto.getIloscNaMagazynie();
+		this.cena = dto.getCena();
+		this.nazwa = dto.getNazwa();
+		this.magazyn = magazyn;
+	}
+	
 	public Integer getIdProduktu() {
 		return idProduktu;
 	}

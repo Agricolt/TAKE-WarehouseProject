@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,11 +17,18 @@ public class Magazyn {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idKMagazynu;
 	
+	@Column(unique = true)
 	private String adres;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="magazyn")
 	private List<Produkt> produkty = new ArrayList<Produkt>();
 
+	
+	public Magazyn(String adres){
+		this.idKMagazynu = null;
+		this.adres = adres;
+	}
+	
 	public Integer getIdKMagazynu() {
 		return idKMagazynu;
 	}
