@@ -1,12 +1,17 @@
 package Repositories;
 
+import java.util.List;
+
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import RepositoryInterfaces.MagazynInterface;
 import pl.warehouse.entities.Magazyn;
+
 @Stateless
 public class MagazynRepository implements MagazynInterface {
 
@@ -24,7 +29,7 @@ public class MagazynRepository implements MagazynInterface {
 
 
 	@Override
-	public Magazyn getMagazynById(Long id) {
+	public Magazyn getMagazynById(Integer id) {
 		return em.find(Magazyn.class,id);
 	}
 
@@ -35,23 +40,27 @@ public class MagazynRepository implements MagazynInterface {
 		return q.getSingleResult();
 	}
 
-	@Override
-	public Magazyn saveMagazyn(Magazyn m) {
-		if(m.getIdKMagazynu()==null){
-			em.persist(m);
-		}
-		else{
-			m = em.merge(m);
-		}
-			return m;
+
+  	@Override
+	public List<Magazyn> getAllMagazyn(){
+		TypedQuery<Magazyn> q = em.createQuery("SELECT m from Magazyn m", Magazyn.class);
+		List<Magazyn> listOfEntities = q.getResultList();
+		return listOfEntities;
 	}
 
-	@Override
-	public void deleteMagazyn(Magazyn m) {
-			if(em.contains(m)){
-				em.remove(m);
-			}else{
-				em.merge(m);
-			}
-	}
+	@Override					
+	@Transactional
+  	public Magazyn saveMagazyn(Magazyn m) {
+  		em.persist(m);
+  		return m;
+  	}
+  
+  	@Override
+	@Transactional
+  	public void deleteMagazyn(Magazyn m) {
+  			if(em.contains(m)){
+  				em.remove(m);
+  			}
+  	}
 }
+  	

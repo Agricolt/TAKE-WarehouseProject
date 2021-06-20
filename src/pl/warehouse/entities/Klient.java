@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import pl.warehouse.dto.KlientDTO;
+
 @Entity
 public class Klient {
 	@Id 
@@ -88,6 +90,18 @@ public class Klient {
 		super();
 	}
 	
+	public Klient(KlientDTO dto){
+		this.email = dto.getEmail();
+		this.imie = dto.getImie();
+		this.nazwisko = dto.getNazwisko();
+		this.telefon = dto.getTelefon();
+	}
 	
+	public void update(KlientDTO dto){
+		this.email = dto.getEmail();
+		this.imie = dto.getImie();
+		this.nazwisko = dto.getNazwisko();
+		this.telefon = dto.getTelefon();
+	}
 	
 }

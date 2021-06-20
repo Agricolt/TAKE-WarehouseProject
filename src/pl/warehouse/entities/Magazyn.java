@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import pl.warehouse.dto.MagazynDTO;
+
 @Entity
 public class Magazyn {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,18 +22,8 @@ public class Magazyn {
 	@Column(unique = true)
 	private String adres;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="magazyn")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="magazyn")
 	private List<Produkt> produkty = new ArrayList<Produkt>();
-
-	
-	public Magazyn(String adres){
-		this.idKMagazynu = null;
-		this.adres = adres;
-	}
-	
-	public Integer getIdKMagazynu() {
-		return idKMagazynu;
-	}
 
 	public void setIdKMagazynu(Integer idKMagazynu) {
 		this.idKMagazynu = idKMagazynu;
@@ -53,14 +45,32 @@ public class Magazyn {
 		this.produkty = produkty;
 	}
 
+
+	public Magazyn() {
+		super();
+	}
+	
 	public Magazyn(String adres, List<Produkt> produkty) {
 		super();
 		this.adres = adres;
 		this.produkty = produkty;
 	}
 
-	public Magazyn() {
-		super();
+  	public Magazyn(String adres){
+  		this.idKMagazynu = null;
+  		this.adres = adres;
+  	}
+	
+	public void update(MagazynDTO dto){
+		this.adres = dto.getAdres();
 	}
+	
+	public Magazyn(MagazynDTO dto){
+		this.adres = dto.getAdres();
+	}
+	
+  	public Integer getIdKMagazynu() {
+  		return idKMagazynu;
+  	}
 	
 }

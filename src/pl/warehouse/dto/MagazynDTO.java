@@ -1,8 +1,11 @@
 package pl.warehouse.dto;
 
-public class MagazynDTO {
-	String adres;
+import pl.warehouse.entities.Magazyn;
 
+public class MagazynDTO {
+	private Integer id;
+	private String adres;
+	
 	public String getAdres() {
 		return adres;
 	}
@@ -13,10 +16,16 @@ public class MagazynDTO {
 
 	public MagazynDTO(String adres) {
 		super();
+		this.id = null;
 		this.adres = adres;
+	}
+	
+	public MagazynDTO(Magazyn magazyn) {
+		this.id = magazyn.getIdKMagazynu();
+		this.adres = magazyn.getAdres();
 	}
 
 	public MagazynDTO() {
+		super();
 	}
-	
 }
