@@ -10,10 +10,10 @@ import javax.transaction.Transactional;
 
 import RepositoryInterfaces.KlientInterface;
 import pl.warehouse.entities.Klient;
-import pl.warehouse.entities.Magazyn;
 
 @Stateless
 public class KlientRepository implements KlientInterface {
+	
 	@PersistenceContext(unitName = "warehouse")
 	private EntityManager em;
 
@@ -39,14 +39,15 @@ public class KlientRepository implements KlientInterface {
 
 	@Override
 	public Klient getKlientByTelefon(Integer nrTelefonu) {
-		TypedQuery<Klient> q = em.createQuery("SELECT k from Klient k WHERE k.nazwisko = :nrTelefonu", Klient.class);
+		System.out.println(nrTelefonu);
+		TypedQuery<Klient> q = em.createQuery("SELECT k from Klient k WHERE k.telefon = :nrTelefonu", Klient.class);
 		q.setParameter("nrTelefonu", nrTelefonu);
 		return q.getSingleResult();
 	}
 
 	@Override
 	public Klient getKlientByEmail(String email) {
-		TypedQuery<Klient> q = em.createQuery("SELECT k from Klient k WHERE k.nazwisko = :email", Klient.class);
+		TypedQuery<Klient> q = em.createQuery("SELECT k from Klient k WHERE k.email = :email", Klient.class);
 		q.setParameter("email", email);
 		return q.getSingleResult();
 	}

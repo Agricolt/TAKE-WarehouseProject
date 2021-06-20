@@ -1,6 +1,5 @@
 package pl.kurs.komis;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,9 +7,7 @@ import javax.ejb.Stateless;
 
 import RepositoryInterfaces.MagazynInterface;
 import pl.warehouse.dto.MagazynDTO;
-import pl.warehouse.dto.ProduktDTO;
 import pl.warehouse.entities.Magazyn;
-import pl.warehouse.entities.Produkt;
 
 @Stateless
 public class MagazynEJB {
