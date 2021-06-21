@@ -1,8 +1,2 @@
 /bin/
-*/.settings/*
-*/.dist/*
-*/Schemat/*
-*/lib/*
-*/.classpath
-*/.project
 *.xml
