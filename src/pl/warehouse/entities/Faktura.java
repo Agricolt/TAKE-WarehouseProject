@@ -21,7 +21,10 @@ public class Faktura {
 	private Klient klient;
 	
 	private float kwota;
-
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="faktura")
+	private List<ProduktFaktura> produktyFaktury = new ArrayList<ProduktFaktura>();
+	
 	public Integer getIdFaktury() {
 		return idFaktury;
 	}
@@ -29,9 +32,6 @@ public class Faktura {
 	public void setIdFaktury(Integer idFaktury) {
 		this.idFaktury = idFaktury;
 	}
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="faktura")
-	private List<ProduktFaktura> produktyFaktury = new ArrayList<ProduktFaktura>();
 	
 	public Klient getKlient() {
 		return klient;

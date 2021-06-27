@@ -14,6 +14,8 @@ import javax.ws.rs.Produces;
 
 import pl.kurs.komis.KlientEJB;
 import pl.warehouse.dto.KlientDTO;
+import pl.warehouse.dto.ProduktDTO;
+import pl.warehouse.dto.ZamowienieDTO;
 import pl.warehouse.entities.Klient;
 
 @Path("/klient")
@@ -69,4 +71,12 @@ public class KlientREST {
 	public void updateKlient(@PathParam("id") Integer id, KlientDTO dto){
 		bean.updateKlient(id, dto);
 	}
+	
+	
+	@POST
+	@Path("/zamowienie")
+	public void createZamowienie (ZamowienieDTO dto) {
+		 bean.createZamowienie(dto);
+	}
+	
 }

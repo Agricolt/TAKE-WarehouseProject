@@ -1,19 +1,32 @@
 package pl.kurs.komis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import RepositoryInterfaces.FakturaInterface;
 import RepositoryInterfaces.KlientInterface;
+import RepositoryInterfaces.ProduktInterface;
 import pl.warehouse.dto.KlientDTO;
+import pl.warehouse.dto.ZamowienieDTO;
+import pl.warehouse.entities.Faktura;
 import pl.warehouse.entities.Klient;
+import pl.warehouse.entities.Produkt;
+import pl.warehouse.entities.ProduktFaktura;
 
 @Stateless
 public class KlientEJB {
 	
 	@EJB
 	private KlientInterface klientInterface;
+	
+	@EJB
+	private ProduktInterface produktInterface;
+	
+	@EJB
+	private FakturaInterface fakturaInterface;
 	
 	public KlientDTO getKlientByNazwisko(String nazwisko){
 		return new KlientDTO(klientInterface.getKlientByNazwisko(nazwisko));
@@ -49,5 +62,40 @@ public class KlientEJB {
 		klient.update(dto);
 		klientInterface.saveKlient(klient);
 	}
+	
+	public void createZamowienie(ZamowienieDTO dto){
+		
+		Klient klient = klientInterface.getKlientById(dto.getKlientId());
+		
+		List<ProduktFaktura> produkty = new ArrayList<>();
+		Faktura faktura = new Faktura();
+		
+		float kwota = 0f;
+		Integer i = 0;
+		
+		
+		for(Integer produktId: dto.getProdukty()){
+			Produkt produkt = produktInterface.getProduktById(produktId);
+			ProduktFaktura pfaktura = new ProduktFaktura();
+			pfaktura.setFaktura(faktura);
+			pfaktura.setProdukt(produkt);
+			pfaktura.setIloscSztukKupionych(dto.getIlosc().get(i));
+			kwota += dto.getIlosc().get(i)*produkt.getCena();
+			produkt.setIloscNaMagazynie(produkt.getIloscNaMagazynie() - dto.getIlosc().get(i));
+			produktInterface.saveProdukt(produkt);
+			produkty.add(pfaktura);
+			i++;
+		}
+		
+		
+		faktura.setKlient(klient);
+		faktura.setProduktyFaktury(produkty);
+		faktura.setKwota(kwota);
+		klient.getFaktury().add(faktura);
+		
+		fakturaInterface.saveFaktura(faktura);
+		
+	}
+	
 	
 }
