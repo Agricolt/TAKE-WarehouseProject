@@ -1,11 +1,15 @@
 package Repositories;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import RepositoryInterfaces.FakturaInterface;
 import pl.warehouse.entities.Faktura;
+import pl.warehouse.entities.Produkt;
 
 @Stateless
 public class FakturaRepository implements FakturaInterface {
@@ -31,4 +35,12 @@ public class FakturaRepository implements FakturaInterface {
 		}
 		return f;
 	}
+	
+	@Override
+	public List<Faktura> getFakturaKlient(Integer id){
+		TypedQuery<Faktura> q = em.createQuery("SELECT f from Faktura f WHERE f.klient.idKlienta = :id",Faktura.class);
+		q.setParameter("id", id);
+		return q.getResultList();
+	}
+	
 }

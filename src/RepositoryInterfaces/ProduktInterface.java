@@ -15,4 +15,5 @@ public interface ProduktInterface {
 	public List<Produkt> getProduktByMagazyn(Integer id);
 	public Produkt getProduktById(Integer id);
 	public void deleteProduct(Integer productId);
+	public List<Produkt> getAllProdukt();
 }

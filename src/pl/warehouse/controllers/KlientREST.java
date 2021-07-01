@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import pl.kurs.komis.KlientEJB;
+import pl.warehouse.dto.FakturaDTO;
 import pl.warehouse.dto.KlientDTO;
 import pl.warehouse.dto.ProduktDTO;
 import pl.warehouse.dto.ZamowienieDTO;
@@ -77,6 +78,18 @@ public class KlientREST {
 	@Path("/zamowienie")
 	public void createZamowienie (ZamowienieDTO dto) {
 		 bean.createZamowienie(dto);
+	}
+	
+	@GET
+	@Path("/faktury/{email}")
+	public List<FakturaDTO> getKlientFaktury(@PathParam("email") String email){
+		return bean.getFaktury(email);
+	}
+	
+	@GET
+	@Path("/login/{email}")
+	public boolean klientLogin(@PathParam("email") String email){
+		return bean.klientLogin(email);
 	}
 	
 }

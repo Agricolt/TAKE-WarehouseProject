@@ -81,5 +81,15 @@ public class ProduktEJB {
 		produktRepository.saveProdukt(produkt);
 	}
 	
+	public List<ProduktDTO> getAllProdukt(){
+		List<Produkt> produkty = produktRepository.getAllProdukt();
+		List<ProduktDTO> produktyDTO = new ArrayList<>();
+		
+		for(Produkt produkt: produkty){
+			produktyDTO.add(new ProduktDTO(produkt));
+		}
+		return produktyDTO;
+		
+	}
 	
 }

@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import RepositoryInterfaces.FakturaInterface;
 import RepositoryInterfaces.KlientInterface;
 import RepositoryInterfaces.ProduktInterface;
+import pl.warehouse.dto.FakturaDTO;
 import pl.warehouse.dto.KlientDTO;
 import pl.warehouse.dto.ZamowienieDTO;
 import pl.warehouse.entities.Faktura;
@@ -65,7 +66,7 @@ public class KlientEJB {
 	
 	public void createZamowienie(ZamowienieDTO dto){
 		
-		Klient klient = klientInterface.getKlientById(dto.getKlientId());
+		Klient klient = klientInterface.getKlientByEmail(dto.getEmail());
 		
 		List<ProduktFaktura> produkty = new ArrayList<>();
 		Faktura faktura = new Faktura();
@@ -97,5 +98,29 @@ public class KlientEJB {
 		
 	}
 	
+	public List<FakturaDTO> getFaktury(String email){
+		
+		List<Faktura> faktury = klientInterface.getKlientByEmail(email).getFaktury();
+		List<FakturaDTO> fakturyDTO = new ArrayList<>();
+		for(Faktura faktura: faktury){
+			FakturaDTO dto = new FakturaDTO(faktura);
+			fakturyDTO.add(dto);
+		}
+		
+		return fakturyDTO;
+		
+		
+	}
+	
+	public boolean klientLogin(String email){
+		
+		try{
+		Klient klient = klientInterface.getKlientByEmail(email);
+		}catch(javax.ejb.EJBTransactionRolledbackException e){
+			return false;
+		}
+		return true;
+			
+	} 
 	
 }

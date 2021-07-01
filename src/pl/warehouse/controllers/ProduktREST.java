@@ -63,4 +63,10 @@ public class ProduktREST {
 		bean.updateProdukt(id, dto);
 	}
 	
+	@GET
+	public List<ProduktDTO> getAllProdukt(){
+		return bean.getAllProdukt();
+	}
+	
+	
 }

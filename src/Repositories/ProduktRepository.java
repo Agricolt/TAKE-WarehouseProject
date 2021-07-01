@@ -77,4 +77,12 @@ public class ProduktRepository implements ProduktInterface {
 	            .setParameter("id", productId)
 	            .executeUpdate();  
 	}
+	
+	@Override
+	public List<Produkt> getAllProdukt(){
+		TypedQuery<Produkt> q = em.createQuery("SELECT p from Produkt p", Produkt.class);
+		List<Produkt> listOfEntities = q.getResultList();
+		return listOfEntities;
+	}
+	
 }

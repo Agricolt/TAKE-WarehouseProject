@@ -4,28 +4,18 @@ import java.util.List;
 
 public class ZamowienieDTO {
 
-	private Integer klientId;
+	private String email;
 	
 	private List<Integer> produkty;
 
 	private List<Integer> ilosc;
-	
-	
-	
 
-	public ZamowienieDTO(Integer klientId, List<Integer> produkty, List<Integer> ilosc) {
-		super();
-		this.klientId = klientId;
-		this.produkty = produkty;
-		this.ilosc = ilosc;
+	public String getEmail() {
+		return email;
 	}
 
-	public Integer getKlientId() {
-		return klientId;
-	}
-
-	public void setKlientId(Integer klientId) {
-		this.klientId = klientId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Integer> getProdukty() {
@@ -44,9 +34,21 @@ public class ZamowienieDTO {
 		this.ilosc = ilosc;
 	}
 
+	public ZamowienieDTO(String email, List<Integer> produkty, List<Integer> ilosc) {
+		super();
+		this.email = email;
+		this.produkty = produkty;
+		this.ilosc = ilosc;
+	}
+
 	public ZamowienieDTO() {
 		super();
 	}
+	
+	
+	
+
+	
 	
 	
 	
